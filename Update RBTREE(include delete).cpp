@@ -41,21 +41,10 @@ void print_RBtree(RBroot *root){
     //print_back_RBtree(root->node);
 }
 
-char color(NODE *node){
-    char p;
-    p = rb_is_black(node) ? 'B':'R';
-    return p;
-}
-
-const char *parent_child(NODE *node){
-    const char *p = (rb_parent(node)->left == node) ? "left":"right";
-    return p;
-}
-
 void print_head_RBtree(NODE *node){
     if (node){
         if (rb_parent(node) != NULL)
-            std::cout << node->key <<"<"<<color(node)<<">\t"<<rb_parent(node)->key<<"'s\t"<<parent_child(node)<<" child."<<std::endl;
+            std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
         print_head_RBtree(node->left);
         print_head_RBtree(node->right);
     }
