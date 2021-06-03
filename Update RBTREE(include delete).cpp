@@ -22,12 +22,15 @@ int main(){
 
     printf("\nBeginning to delete\n");
 
+    //Delete_Rbtree(root,array[ilen-2]);  //Test the Delete_Rbtree
     for (i = ilen-1; i >= 0 ; --i){
         Delete_Rbtree(root,array[i]);
+#if CHECK_DELETE
         printf("Delete node value: %d\n",array[i]);
         printf("The information of node: \n");
         print_RBtree(root);
         printf("\n");
+#endif 
     }
 
     system("pause");
@@ -50,23 +53,23 @@ void print_head_RBtree(NODE *node){
     }
 }
 
-void print_mid_RBtree(NODE *node){     //same as print_head_RBtree
-    if (node){                       
-        print_mid_RBtree(node->left);  //amend this line as head_printf
-        if (rb_parent(node) != NULL)
-            std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
-        print_mid_RBtree(node->right);
-    }
-}
+// void print_mid_RBtree(NODE *node){     //same as print_head_RBtree
+//     if (node){                       
+//         print_mid_RBtree(node->left);  //amend this line as head_printf
+//         if (rb_parent(node) != NULL)
+//             std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
+//         print_mid_RBtree(node->right);
+//     }
+// }
 
-void print_back_RBtree(NODE *node){    //same
-     if (node){
-        print_back_RBtree(node->left);
-        print_back_RBtree(node->right);
-        if (rb_parent(node) != NULL)
-            std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
-    }
-}
+// void print_back_RBtree(NODE *node){    //same
+//      if (node){
+//         print_back_RBtree(node->left);
+//         print_back_RBtree(node->right);
+//         if (rb_parent(node) != NULL)
+//             std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
+//     }
+// }
 
 RBroot *Create_RBroot(){
     RBroot *root = new RBroot;
@@ -217,24 +220,29 @@ void LEFT_ROTATE(RBroot *root,NODE *node){
     x->parent = y;
 }
 
-void Delete_Rbtree(RBroot *root,Type key){
+Type Delete_Rbtree(RBroot *root,Type key){
     NODE *z;
     z = Search_node(root->node,key); //to found the node of the value 
     
-    RBTREE_DELETE(root,z);  //begin to delete
+    if(z==NULL){
+        printf("Not search the value of %d.\n",key);
+        return -1;
+    }else{RBTREE_DELETE(root,z);
+        return 0;  //begin to delete
+    }
 }
 
 NODE *Search_node(NODE *node,Type key){
-    if (node->key == key){
+    if (node == NULL){
+        return NULL;
+    }
+    if(node->key == key){
         return node;
     }
     if (node->key < key){
         return Search_node(node->right,key);
     }else {
         return Search_node(node->left,key);
-    }
-    if (node == NULL){
-        printf("Not search the key.");
     }
 }
 
@@ -346,3 +354,6 @@ void RB_DELETE_FIXUP(RBroot *root,NODE *x){
     }
     rb_set_black(x);
 }
+
+
+
