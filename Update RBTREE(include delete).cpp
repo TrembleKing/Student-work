@@ -245,7 +245,7 @@ NODE *Search_node(NODE *node,Type key){
         return Search_node(node->left,key);
     }
     if (node == NULL){
-        printf("Not such the key.");
+        printf("Not search the key.");
     }
 }
 
