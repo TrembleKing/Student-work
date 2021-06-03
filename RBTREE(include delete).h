@@ -2,6 +2,7 @@
 #define BLACK 1
 #define RED 0
 #define CHECK_INSERT 1
+#define CHECK_DELETE 1
 #define rb_parent(r) ((r)->parent)
 // #define rbleft(r) ((r)->left)   //Well,lazy... Not to amend
 // #define rbright(r) ((r)->right)
@@ -58,7 +59,7 @@ void print_back_RBtree(NODE *);
 void RBtree_fixup(RBroot *,NODE *); //fixup,include right rotate and left rotate
 void LEFT_ROTATE(RBroot *,NODE *);  
 void RIGHT_ROTATE(RBroot *,NODE *);
-void Delete_Rbtree(RBroot *,Type);
+Type Delete_Rbtree(RBroot *,Type);
 NODE *Search_node(NODE *,Type);
 void RBTREE_DELETE(RBroot *,NODE *);    
 void RB_TRANSPLANT(RBroot *,NODE *,NODE *);
