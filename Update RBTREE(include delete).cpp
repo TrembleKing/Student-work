@@ -54,7 +54,7 @@ void print_mid_RBtree(NODE *node){     //same as print_head_RBtree
     if (node){                       
         print_mid_RBtree(node->left);  //amend this line as head_printf
         if (rb_parent(node) != NULL)
-            std::cout << node->key <<"<"<<color(node)<<">\t"<<rb_parent(node)->key<<"'s\t"<<parent_child(node)<<" child."<<std::endl;
+            std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
         print_mid_RBtree(node->right);
     }
 }
@@ -64,7 +64,7 @@ void print_back_RBtree(NODE *node){    //same
         print_back_RBtree(node->left);
         print_back_RBtree(node->right);
         if (rb_parent(node) != NULL)
-            std::cout << node->key <<"<"<<color(node)<<">\t"<<rb_parent(node)->key<<"'s\t"<<parent_child(node)<<" child."<<std::endl;
+            std::cout << node->key <<"<"<<(rb_is_black(node) ? 'B':'R')<<">\t"<<rb_parent(node)->key<<"'s\t"<<((rb_parent(node)->left == node) ? "left":"right")<<" child."<<std::endl;
     }
 }
 
